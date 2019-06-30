@@ -15,16 +15,16 @@ KITTI official website: <http://www.cvlibs.net/datasets/kitti/>
 KITTI include many different types of data, e.g., RGB cameras for images, Velodyne Laserscanner for point clouds, sensor data (e.g., GPS, acceleration). Details are given [here](http://www.cvlibs.net/datasets/kitti/raw_data.php).
 
 For most of CV works, the data of interest are
-* 2D RGB images
-* Labels
-* 3D point clouds  
-* Calibration files for synchronizing images and point clouds
+*  2D RGB images
+*  Labels
+*  3D point clouds  
+*  Calibration files for synchronizing images and point clouds
 
 ### Illustration
 
 Let's have a quick look at the 2D images and 3D point clouds. The download page is [3D Object Detection Evaluation 2017](http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d)
-* Left color images of object dataset (12 GB)
-* Velodyne point clouds (29 GB)
+*  Left color images of object dataset (12 GB)
+*  Velodyne point clouds (29 GB)
 
 After uncompressing, we'll have two folders `data_object_image_2` and `data_object_velodyne`.
 
@@ -50,7 +50,7 @@ A python script to show the point cloud (file: `python/point_cloud_viewer.py`)
   pptk.viewer(point_cloud_data[:, :3])
 ```
 
-`data_object_velodyne/training/velodyne/000000.bin` is shown below
+`data_object_velodyne/training/velodyne/000000.bin` is shown below (Can you see the person walking on street?)
 
 <img src="img/point_cloud_000000.png" width=700 />
 
@@ -64,3 +64,5 @@ A python script to show the point cloud (file: `python/point_cloud_viewer.py`)
 ## Cropping Point Clouds
 
 The point clouds are scanned in 360 degrees while the RGB cameras are not (they have fixed and much smaller field of view). In additions, KITTI only provides labels for objects that are within the images. Therefore, we need to crop point clouds according to the images.
+
+still working...
