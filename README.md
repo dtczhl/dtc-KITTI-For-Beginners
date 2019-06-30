@@ -37,7 +37,7 @@ We can use the [pptk](https://heremaps.github.io/pptk/tutorials/viewer/semantic3
   pip install pptk
 ```
 
-A python script to show the point cloud (file: `python/point_cloud_viewer.py`)
+A python script to show the point cloud ([python/point_cloud_viewer.py](python/point_cloud_viewer.py))
 ```shell
   import numpy as np
   import pptk
@@ -54,7 +54,7 @@ A python script to show the point cloud (file: `python/point_cloud_viewer.py`)
 
 <img src="img/point_cloud_000000.png" width=700 />
 
-**Note**: if you are using Ubuntu 18.04 and your program hangs without the viewer window, try fix it following <https://github.com/heremaps/pptk/issues/3>. Something like below if you are using Anaconda
+**Note**: if you are using Ubuntu 18.04 and your program hangs without showiing the viewer window, try fix it following <https://github.com/heremaps/pptk/issues/3>. Something like below if you are using Anaconda
 ```shell
   cd $CONDA_PREFIX/lib/python3.7/site-packages/pptk/libs
   mv libz.so.1 libz.so.1.old
@@ -63,6 +63,6 @@ A python script to show the point cloud (file: `python/point_cloud_viewer.py`)
 
 ## Cropping Point Clouds
 
-The point clouds are scanned in 360 degrees while the RGB cameras are not (they have fixed and much smaller field of view). In additions, KITTI only provides labels for objects that are within the images. Therefore, we need to crop point clouds according to the images.
+The point clouds are scanned in 360 degrees while the RGB cameras are not (they have fixed and much smaller field of view). In addition, KITTI only provides labels for objects that are within the images. Therefore, we usally need to crop point clouds according to the images.
 
 still working...
