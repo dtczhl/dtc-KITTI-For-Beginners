@@ -1,2 +1,7 @@
 # dtc-KITTI-For-Beginners
-Brief explanations about KITTI dataset
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+&nbsp
+
+
+Some explanations about KITTI dataset that might be helpful for beginners.
