@@ -63,6 +63,29 @@ sudo ln -s /lib/x86_64-linux-gnu/libz.so.1
 
 ## Cropping Point Clouds
 
-The point clouds are scanned in 360 degrees while the RGB cameras are not (they have a much narrower field of view). In addition, KITTI only provides labels for objects that are within the images. Therefore, we usually need to crop point clouds according to the images.
+The point clouds are scanned in 360 degrees while the RGB cameras are not (they have a much narrower field of view). In addition, KITTI only provides labels for objects that are within the images. Therefore, we usually need to remove points outside the image coordinates.
 
-still working...
+Download data from [here](http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d)
+*   Left color images of object data (12 GB)
+*   Velodyne point clouds (29 GB)
+*   Camera calibration matrices of object data set (16 MB)
+
+[python/crop_point_cloud.py](python/crop_point_cloud.py) is a script from this [github](https://github.com/qianguih/voxelnet/blob/master/data/crop.py) that can be used for this purpose. You only need to specify the paths to the training folders of images, point clouds, camera calibration, and the path you want to save the cropped point cloud.
+
+```python
+# path to data_object_image_2/training/image_2
+IMG_ROOT = '/home/dtc/Data/KITTI/data_object_image_2/training/image_2/'
+# path to data_object_velodyne/training/velodyne
+PC_ROOT = '/home/dtc/Data/KITTI/data_object_velodyne/training/velodyne/'
+# path to data_object_calib/training/calib
+CALIB_ROOT = '/home/dtc/Data/KITTI/data_object_calib/training/calib/'
+# path to the folder for saving cropped point clouds
+SAVE_ROOT = '/home/dtc/Data/KITTI/save'
+```
+
+The cropped `000000.bin` point cloud is shown below, which only includes points within the image coordinates. The number of points is reduced from 115384 to 19030.
+<img src="img/point_cloud_cropped_000000.png" width=700 />
+
+
+## Labels
+still working on...
