@@ -86,6 +86,5 @@ SAVE_ROOT = '/home/dtc/Data/KITTI/save'
 The cropped `000000.bin` point cloud is shown below, which only includes points within the image coordinates. The number of points is reduced from 115384 to 19030.
 <img src="img/point_cloud_cropped_000000.png" width=700 />
 
-
 ## Labels
 still working on...

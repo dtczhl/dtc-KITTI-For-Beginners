@@ -1,5 +1,6 @@
 import numpy as np
-from scipy.misc import imread
+# from scipy.misc import imread
+import imageio
 import os
 
 
@@ -58,18 +59,19 @@ def project_velo_points_in_img(pts3d, T_cam_velo, Rrect, Prect):
 
 
 def align_img_and_pc(img_dir, pc_dir, calib_dir):
-    img = imread(img_dir)
+    img = imageio.imread(img_dir)
+    # img = imread(img_dir)
     pts = load_velodyne_points(pc_dir)
     P, Tr_velo_to_cam, R_cam_to_rect = load_calib(calib_dir)
 
     pts3d, indices = prepare_velo_points(pts)
-    pts3d_ori = pts3d.copy()
+    # pts3d_ori = pts3d.copy()
     reflectances = pts[indices, 3]
     pts3d, pts2d_normed, idx = project_velo_points_in_img(pts3d, Tr_velo_to_cam, R_cam_to_rect, P)
     # print reflectances.shape, idx.shape
     reflectances = reflectances[idx]
     # print reflectances.shape, pts3d.shape, pts2d_normed.shape
-    assert reflectances.shape[0] == pts3d.shape[1] == pts2d_normed.shape[1]
+    # assert reflectances.shape[0] == pts3d.shape[1] == pts2d_normed.shape[1]
 
     rows, cols = img.shape[:2]
 
@@ -97,9 +99,9 @@ PC_ROOT = '/home/dtc/Data/KITTI/data_object_velodyne/training/velodyne/'
 CALIB_ROOT = '/home/dtc/Data/KITTI/data_object_calib/training/calib/'
 
 # path to the folder for saving cropped point clouds
-SAVE_ROOT = '/home/dtc/Data/KITTI/save'
+SAVE_ROOT = '/home/dtc/Data/KITTI/'
 
-for frame in range(0, 7481):
+for frame in range(0, 3):
 
     print('--- processing {0:06d}'.format(frame))
 
@@ -111,8 +113,3 @@ for frame in range(0, 7481):
 
     output_name = os.path.join(SAVE_ROOT, '{0:06d}.bin'.format(frame))
     points[:, :4].astype('float32').tofile(output_name)
-
-
-
-
-
