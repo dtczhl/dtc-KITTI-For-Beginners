@@ -83,8 +83,41 @@ CALIB_ROOT = '/home/dtc/Data/KITTI/data_object_calib/training/calib/'
 SAVE_ROOT = '/home/dtc/Data/KITTI/save'
 ```
 
-The cropped `000000.bin` point cloud is shown below, which only includes points within the image coordinates. The number of points is reduced from 115384 to 19030.
+The cropped `000000.bin` point cloud is shown below, which only includes points within the image coordinates. In this example, the number of points is reduced from 115384 to 19030.
+
 <img src="img/point_cloud_cropped_000000.png" width=700 />
 
 ## Labels
-still working on...
+KITTI provides labels (location of objects, etc.) for both 2D images and 3D point clouds. Download labels from [here](http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d)
+
+* training labels of object data set (5 MB)
+
+An example `data_object_label_2/training/label_2/000000.txt`
+```plain
+Pedestrian 0.00 0 -0.20 712.40 143.00 810.73 307.92 1.89 0.48 1.20 1.84 1.47 8.41 0.01
+```
+
+The formats (could also refer [here](https://github.com/NVIDIA/DIGITS/blob/v4.0.0-rc.3/digits/extensions/data/objectDetection/README.md)): 15 columns.
+
+
+1. (column 0). There are 9 types of objects. The corresponding counts are tabulated below. See [python/label_info.py](python/label_info.py)
+
+Car | DontCare | Pedestrian | Van | Cyclist | Truck | Misc | Tram | Person_sitting
+:---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
+28742 | 11295 | 4487 | 2914 | 1627 | 1094 | 973 | 511 | 222
+
+2. (column 1). Float from 0 (non-truncated) to 1 (truncated), where truncated refers to the object leaving image boundaries
+
+3. (column 2). Integer (0,1,2,3) indicating occlusion state: 0 = fully visible, 1 = partly occluded, 2 = largely occluded, 3 = unknown
+
+4. (column 3). Observation angle of object, ranging [-pi..pi]
+
+5. (column 4-7). 2D bounding box of object in the image (0-based index): contains left, top, right, bottom pixel coordinates
+
+6. (column 8-10). 3D object dimensions: height, width, length (in meters)
+
+7. (column 11-13). The center location x, y, z of the 3D object in camera coordinates (in meters)
+
+8. (column 14). Rotation ry around Y-axis in camera coordinates [-pi..pi]
+
+### 2D Boxing in Images 
