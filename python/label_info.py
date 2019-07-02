@@ -1,8 +1,7 @@
-import numpy as np
 import operator
 import os
 
-
+# path to the label folder
 LABEL_ROOT = '/home/dtc/Data/KITTI/data_object_label_2/training/label_2'
 
 
