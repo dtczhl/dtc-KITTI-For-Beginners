@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+
+""" Show 3D point cloud
+
+    Author: Huanle Zhang
+    Website: www.huanlezhang.com
+"""
+
 import numpy as np
 import pptk
 

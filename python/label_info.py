@@ -1,5 +1,16 @@
+#!/usr/bin/env python
+
+""" Statistics of KITTI dataset
+
+    Author: Huanle Zhang
+    Website: www.huanlezhang.com
+"""
+
 import operator
 import os
+
+__author__ = 'Huanle Zhang'
+__email__ = 'zhanghuanle1342@gmail.com'
 
 # path to the label folder
 LABEL_ROOT = '/home/dtc/Data/KITTI/data_object_label_2/training/label_2'

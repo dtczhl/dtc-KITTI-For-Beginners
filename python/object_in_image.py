@@ -1,4 +1,11 @@
-import numpy as np
+#!/usr/bin/env python
+
+""" Draw labeled objects in images
+
+    Author: Huanle Zhang
+    Website: www.huanlezhang.com
+"""
+
 import matplotlib.pyplot as plt
 import matplotlib.image as mping
 import os
@@ -37,7 +44,7 @@ def show_object_in_image(img_filename, label_filename):
 
 
 if __name__ == '__main__':
-    
+
     IMG_DIR = '/home/dtc/Data/KITTI/data_object_image_2/training/image_2'
     LABEL_DIR = '/home/dtc/Data/KITTI/data_object_label_2/training/label_2'
 

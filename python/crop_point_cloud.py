@@ -1,10 +1,13 @@
+""" Remove points outside the image coordinates
+
+    This script is from https://github.com/qianguih/voxelnet/blob/master/data/crop.py
+"""
+
 import numpy as np
 # from scipy.misc import imread
 import imageio
 import os
 
-
-# this script is from https://github.com/qianguih/voxelnet/blob/master/data/crop.py
 
 CAM = 2
 
