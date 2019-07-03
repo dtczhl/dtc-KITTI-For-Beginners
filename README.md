@@ -30,7 +30,7 @@ After uncompressing, we'll have two folders `data_object_image_2` and `data_obje
 
 <img src="img/image_000000.png" width=700/>
 
-We can use the [pptk](https://heremaps.github.io/pptk/tutorials/viewer/semantic3d.html) tool to easily show point clouds.
+We can use the [pptk](https://heremaps.github.io/pptk/tutorials/viewer/semantic3d.html) tool to show point clouds.
 ```shell
 pip install pptk
 ```
@@ -66,7 +66,7 @@ The point clouds are scanned in 360 degrees while the RGB cameras are not (they 
 Download data from [here](http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d)
 *   Left color images of object data (12 GB)
 *   Velodyne point clouds (29 GB)
-*   Camera calibration matrices of object data set (16 MB)
+*   Camera calibration matrices of object data set (16 MB): synchronizing different data sources, e.g., camera, point clouds.
 
 [python/crop_point_cloud.py](python/crop_point_cloud.py) is a script from this [github](https://github.com/qianguih/voxelnet/blob/master/data/crop.py) that can be used for this purpose. You only need to specify the paths to the training folders of images, point clouds, camera calibration, and the path you want to save the cropped point cloud.
 
@@ -90,7 +90,7 @@ KITTI provides labels (location of objects, etc.) for both 2D images and 3D poin
 
 *   training labels of object data set (5 MB)
 
-An example `data_object_label_2/training/label_2/000000.txt`
+An example `data_object_label_2/training/label_2/000000.txt`, meaning that there is a pedestrian in this data frame
 ```plain
 Pedestrian 0.00 0 -0.20 712.40 143.00 810.73 307.92 1.89 0.48 1.20 1.84 1.47 8.41 0.01
 ```
@@ -112,7 +112,7 @@ The formats (could also refer [here](https://github.com/NVIDIA/DIGITS/blob/v4.0.
 8.  (column 14). Rotation ry around Y-axis in camera coordinates \[-pi..pi\]
 
 ### Labeled Objects in 2D Images
-Let's add boxes around the objects in the images. The label information we need is column 0 (type of object), and column 4-7 (left, top, right, and bottom pixel coordinates in the image). [python/object_in_image.py](python/object_in_image.py) can be used to draw objects in 2D images.
+Let's add boxes around the objects in the images. The label information we need is column 0 (type of object), and column 4-7 (left, top, right, and bottom pixel coordinates in the image). `show_object_in_image()` in [python/object_viewer.py](python/object_viewer.py) can be used to draw objects in 2D images.
 
 Need data if you haven't downloaded from [here](http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d).
 
@@ -137,3 +137,40 @@ We need data
 Showcase: `000000.bin`
 
 <img src="img/object_point_cloud_000000.png" width=700 />
+
+## Point Cloud Data Format
+
+KITTI point cloud is a (x, y, z, r) point cloud, where (x, y, z) is the 3D coordinates and r is the reflectance value. Each value is in 4-byte float. The raw data is in the form of \[x0 y0 z0 r0 x1 y1 z1 r1 ...\]. Below are the codes to read point cloud in python, c/c++, and matlab.
+
+Python code
+```python
+import numpy as np
+
+pc_data = np.fromfile(point_cloud_filename, '<f4')
+pc_data = np.reshape(pc_data, (-1, 4))
+```
+
+C++ code
+```c++
+std::FILE *pFile = fopen(point_cloud_filename, "rb");
+fseek(pFile, 0, SEEK_END);    // file pointer goes to the end of the file
+long fileSize = ftell(pFile); // file size
+rewind(pFile);                // rewind file pointer to the beginning
+float *rawData = new float[fileSize];
+fread(rawData, sizeof(float), fileSize/sizeof(float), pFile);
+long number_of_points = fileSize / 4 / sizeof(float);
+float **pc_data = new float*[number_of_points];
+for (int i = 0; i < number_of_points; i++) {
+  pc_data[i] = new float[4];
+  for (int j = 0; j < 4; j++) {
+    pc_data[i][j] = rawData[4*i+j];
+  }
+}
+```
+
+matlab code
+```matlab
+fileId = fopen(point_cloud_filename, 'r');
+pc_data = fread(fileId, 'float');
+pc_data = reshape(pc_data, 4, length(pc_data)/4);
+```

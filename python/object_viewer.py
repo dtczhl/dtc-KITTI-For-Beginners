@@ -60,7 +60,7 @@ def show_object_in_point_cloud(point_cloud_filename, label_filename, calib_filen
         for line in lines:
             line = line.strip('\n').split()
             point_color = MARKER_COLOR[line[0]]
-            xy_center, box3d_corner = camera_coordinate_to_point_cloud(line[8:15], calib['Tr_velo_to_cam'])
+            _, box3d_corner = camera_coordinate_to_point_cloud(line[8:15], calib['Tr_velo_to_cam'])
             for i, v in enumerate(pc_data):
                 if point_in_cube(v[:3], box3d_corner) is True:
                     pc_color[i, :] = point_color
@@ -70,8 +70,8 @@ def show_object_in_point_cloud(point_cloud_filename, label_filename, calib_filen
 
 
 def point_in_cube(point, cube):
-    x_min, y_min, z_min = np.amin(cube, 0)[:3]
-    x_max, y_max, z_max = np.amax(cube, 0)[:3]
+    z_min = np.amin(cube[:, 2], 0)
+    z_max = np.amax(cube[:, 2], 0)
 
     if point[2] > z_max or point[2] < z_min:
         return False
@@ -80,6 +80,7 @@ def point_in_cube(point, cube):
     polygon = Polygon(cube[:4, :2])
 
     return polygon.contains(point)
+
 
 def load_kitti_calib(calib_file):
     """
@@ -147,6 +148,8 @@ def camera_coordinate_to_point_cloud(box3d, Tr):
 
     box3d_corner = cornerPosInVelo.transpose()
 
+    # t_lidar: the x, y coordinator of the center of the object
+    # box3d_corner: the 8 corners
     return t_lidar, box3d_corner.astype(np.float32)
 
 
