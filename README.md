@@ -140,7 +140,7 @@ Showcase: `000000.bin`
 
 ## Point Cloud Data Format
 
-KITTI point cloud is a (x, y, z, r) point cloud, where (x, y, z) is the 3D coordinates and r is the reflectance value. Each value is in 4-byte float. The raw data is in the form of \[x0 y0 z0 r0 x1 y1 z1 r1 ...\]. Below are the codes to read point cloud in python, c/c++, and matlab.
+KITTI point cloud is a (x, y, z, r) point cloud, where (x, y, z) is the 3D coordinates and r is the reflectance value. Each value is in 4-byte float. The raw data is in the form of \[x0 y0 z0 r0 x1 y1 z1 r1 ...\]. Below are the codes to read point cloud in python, C/C++, and matlab.
 
 Python code
 ```python
