@@ -1,7 +1,5 @@
 # dtc-KITTI-For-Beginners
 
-Still working on....
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 &nbsp;
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/17286ebe340041739ecdf6402377585e)](https://www.codacy.com/app/dtczhl/dtc-KITTI-For-Beginners?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dtczhl/dtc-KITTI-For-Beginners&amp;utm_campaign=Badge_Grade)
@@ -114,7 +112,12 @@ The formats (could also refer [here](https://github.com/NVIDIA/DIGITS/blob/v4.0.
 8.  (column 14). Rotation ry around Y-axis in camera coordinates \[-pi..pi\]
 
 ### Labeled Objects in 2D Images
-Let's add boxes around the objects in the images. The label information we need is column 0 (type of object), and column 4-7 (left, top, right, and bottom pixel coordinates in the image). [python/object_in_image.py](python/object_in_image.py) can be used to draw objects in 2D images
+Let's add boxes around the objects in the images. The label information we need is column 0 (type of object), and column 4-7 (left, top, right, and bottom pixel coordinates in the image). [python/object_in_image.py](python/object_in_image.py) can be used to draw objects in 2D images.
+
+Need data if you haven't downloaded from [here](http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d).
+
+*   Left color images of object data (12 GB)
+*   Training labels of object data set (5 MB)
 
 Showcase: `000000.png` only has one object of interest, which is boxed.
 
@@ -122,4 +125,15 @@ Showcase: `000000.png` only has one object of interest, which is boxed.
 
 ### Labeled Objects in 3D Point Cloud
 
-still working....
+To label 3D point clouds, we need label information of column 0 (type of object), columns 8-10 (height, width, and length), columns 11-13 (center location of x, y, z), and column 14 (rotation around axis y). However, these location information are given in RGB camera coordinate, and thus we need to project them into the point cloud coordinate.
+
+We need data
+*   Velodyne point clouds (29 GB)
+*   Camera calibration matrices of object data set (16 MB)
+*   Training labels of object data set (5 MB)
+
+`show_object_in_point_cloud()` in [python/object_view.py](python/object_view.py) shows the labeled object in point clouds.
+
+Showcase: `000000.bin`
+
+<img src="img/object_point_cloud_000000.png" width=700 />
