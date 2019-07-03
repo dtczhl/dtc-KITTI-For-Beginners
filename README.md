@@ -172,5 +172,5 @@ matlab code
 ```matlab
 fileId = fopen(point_cloud_filename, 'r');
 pc_data = fread(fileId, 'float');
-pc_data = reshape(pc_data, 4, length(pc_data)/4);
+pc_data = reshape(pc_data, length(pc_data)/4, 4);
 ```
